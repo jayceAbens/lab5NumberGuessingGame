@@ -212,5 +212,5 @@ void playAgain(bool& again, int wins_, int losses_)
 		}
 	} while (invalidResponse == true);	// repeats question if answer is not understood
 
-	cout << "\n\n Wins: " << wins_ << "\tLosses: " << losses_ << endl << endl;	// outputs total wins and losses
+	cout << "\n\t Wins: " << wins_ << "\tLosses: " << losses_ << endl << endl << endl;	// outputs total wins and losses
 }
