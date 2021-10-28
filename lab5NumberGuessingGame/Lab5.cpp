@@ -38,18 +38,25 @@ int main()
 	return 0;
 }
 
+// Precondition : The stdlib.h and time.h headers are included. An integer is passed to the function.
+// Postcondition : a random number is returned between zero and max
 int randomNumber(int max)
 {
 	srand(time(0)); //sets the current time as the seed for generating a psudo-random number
 	return (rand() % max); // returns a random number 0-max
 }
 
+// Precondition : The iostream library is included. Using namespace std
+// Postcondition : The welcome message and game instructions are printed to the screen
 void printIntro()
 {
 	cout << "***** WELCOME TO THE NUMBER GUESSING GAME *****\n\n";
 	cout << "A random number between 0 and 100 has been generated. You have 20 tries to guess it!\n\n";
 }
 
+// Precondition : The iostream library is included. Using namespace std. Variables "wins" and "losses" exist to be passed by reference
+// Postcondition : A random number is generated 0-100. The player recieves 20 attempts to guess it. If the player wins or loses,
+//							a random messages is outputted accordingly. Variables "wins" and "losses" are incremneted accordingly.
 void playGame(int& wins, int& losses)
 {
 	int randNum = randomNumber(101);	// generates random number 0-100, stores it in variable
@@ -135,6 +142,10 @@ void playGame(int& wins, int& losses)
 	}
 }
 
+// Precondition : The iostream library is included. Using namespace std. Variable again exists to be passed by reference. 
+//							Integer values of wins and losses are passed to the function.
+// Postcondition : A random question is asked if the player would like to play again. The player's yes/no response is then checked and
+//							the game is either repeated or exited accordingly 
 void playAgain(bool& again, int wins_, int losses_)
 {
 	switch (randomNumber(10))	// generates a random number 0-9, outputs the correspnding question
