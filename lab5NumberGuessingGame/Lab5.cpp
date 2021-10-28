@@ -26,12 +26,12 @@ using namespace std;
 
 int main()
 {
-	int wins = 0;
-	int losses = 0;
-	bool again;
+	int wins = 0;		// total wins
+	int losses = 0;		// total losses
+	bool again;			// true if player wishes to play again
 
 	do {
-		printIntro();
+		printIntro();	
 		playGame(wins, losses);
 		playAgain(again, wins, losses);
 	} while (again);
@@ -52,10 +52,10 @@ void printIntro()
 
 void playGame(int& wins, int& losses)
 {
-	int randNum = randomNumber(101);
-	int guess;
+	int randNum = randomNumber(101);	// generates random number 0-100, stores it in variable
+	int guess;	// variable to store player guess
 
-	cout << randNum << "\n\n";
+	// cout << randNum << "\n\n";	// line of code use for debuging, outputs random number so you can reliably guess it. 
 
 	cout << "Enter your guesses bellow.\n";
 
@@ -64,19 +64,19 @@ void playGame(int& wins, int& losses)
 		bool invalidGuess;
 		do {
 			cout << "\nGuess " << attempt << ": ";
-			cin >> guess;
-			if (guess < 0 || guess > 100)
+			cin >> guess;	// inputs player guess
+			if (guess < 0 || guess > 100)	// if guess is not between 0 and 100, asks for guess again
 			{
 				cout << "\nYour guess was out of range. Try again between 0 and 100!\n";
 				invalidGuess = true;
 			}
-			else invalidGuess = false;
-		} while (invalidGuess == true);
+			else invalidGuess = false; // if not out of range, continue
+		} while (invalidGuess == true);	// repeats prompt for guess if not in range
 
-		if (guess == randNum)
+		if (guess == randNum)	// if player guess equals the random number, the player wins
 		{
 			cout << endl;
-			switch (randomNumber(10))
+			switch (randomNumber(10))	// generates a random number 0-9, outputs the correspnding response
 			{
 			case 0: cout << "You guessed it!";
 				break;
@@ -100,13 +100,13 @@ void playGame(int& wins, int& losses)
 				break;
 			}
 			cout << endl << endl;
-			wins++;
-			break;
+			wins++;	// increments win count by 1
+			break;	// exits the guessing loop
 		}
-		else if (attempt == 20)
+		else if (attempt == 20)	// if 20 guesses have been made without winning, the player loses
 		{
 			cout << endl;
-			switch (randomNumber(10))
+			switch (randomNumber(10))	// generates a random number 0-9, outputs the correspnding response
 			{
 			case 0: cout << "That's all the guesses you get!";
 				break;
@@ -130,14 +130,14 @@ void playGame(int& wins, int& losses)
 				break;
 			}
 			cout << endl << endl;
-			losses++;
+			losses++;	// increments loss count by 1
 		}
 	}
 }
 
 void playAgain(bool& again, int wins_, int losses_)
 {
-	switch (randomNumber(10))
+	switch (randomNumber(10))	// generates a random number 0-9, outputs the correspnding question
 	{
 			case 0: cout << "Would you like to play again?";
 				break;
@@ -162,37 +162,37 @@ void playAgain(bool& again, int wins_, int losses_)
 	}
 	cout << " (y/n)\n";
 
-	string response;
-	bool invalidResponse;
+	string response;	// variable to store player yes/no response
+	bool invalidResponse;	// true if player response is not deemed valid
 	do
 	{
-		cin >> response;
+		cin >> response;	// inputs player response
 		if (response == "yes" ||
 			response == "Yes" ||
 			response == "YES" ||
 			response == "y" ||
 			response == "Y"
-			)
+			)	// accepts various yes answer cases
 		{
-			again = true;
-			invalidResponse = false;
+			again = true;	// sets again to true, repeating the game loop
+			invalidResponse = false;	// sets invalidResponse to false as the answer was understood
 		}
 		else if (response == "no" ||
 			response == "No" ||
 			response == "NO" ||
 			response == "n" ||
 			response == "N"
-			)
+			)	// accepts various no answer cases
 		{
-			again = false;
-			invalidResponse = false;
+			again = false;	// sets again to false, ending the game loop
+			invalidResponse = false;	// sets invalidResponse to false as the answer was understood
 		}
 		else
 		{
-			cout << "Your answer was not understood. Please enter a yes or no answer: ";
-			invalidResponse = true;
+			cout << "Your answer was not understood. Please enter a yes or no answer: ";	// if answer was not understood as yes or no, asks again
+			invalidResponse = true;		// sets invalidResponse to true as the answer was not understood
 		}
-	} while (invalidResponse == true);
+	} while (invalidResponse == true);	// repeats question if answer is not understood
 
-	cout << "\n\n Wins: " << wins_ << "\tLosses: " << losses_ << endl << endl;
+	cout << "\n\n Wins: " << wins_ << "\tLosses: " << losses_ << endl << endl;	// outputs total wins and losses
 }
