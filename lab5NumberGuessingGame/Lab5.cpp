@@ -19,7 +19,7 @@ code file should be called Lab5.cpp.
 
 int randomNumber(int max);
 void printIntro();
-void playGame(int& wins, int& losses);
+int playGame(int& wins, int& losses);
 void playAgain(bool& again, int wins_, int losses_);
 
 using namespace std;
@@ -32,7 +32,11 @@ int main()
 
 	do {
 		printIntro();	
-		playGame(wins, losses);
+		if (playGame(wins, losses) == 1) // if error code is returned, output error message
+		{
+			cout << "User input error. Stream in failed state. Exiting program...\n";
+			return 1; // returns error code and exits the program
+		}
 		playAgain(again, wins, losses);
 	} while (again);
 	return 0;
@@ -57,7 +61,8 @@ void printIntro()
 // Precondition : The iostream library is included. Using namespace std. Variables "wins" and "losses" exist to be passed by reference
 // Postcondition : A random number is generated 0-100. The player recieves 20 attempts to guess it. If the player wins or loses,
 //							a random messages is outputted accordingly. Variables "wins" and "losses" are incremneted accordingly.
-void playGame(int& wins, int& losses)
+//							Must handle guesses out of range, asking for a new guess. Must exit the program gracefully if stream enters failed state.
+int playGame(int& wins, int& losses)
 {
 	int randNum = randomNumber(101);	// generates random number 0-100, stores it in variable
 	int guess;	// variable to store player guess
@@ -72,6 +77,7 @@ void playGame(int& wins, int& losses)
 		do {
 			cout << "\nGuess " << attempt << ": ";
 			cin >> guess;	// inputs player guess
+			if (!cin) return 1; // if the stream enters failed state, return error code and exit function
 			if (guess < 0 || guess > 100)	// if guess is not between 0 and 100, asks for guess again
 			{
 				cout << "\nYour guess was out of range. Try again between 0 and 100!\n";
@@ -140,6 +146,7 @@ void playGame(int& wins, int& losses)
 			losses++;	// increments loss count by 1
 		}
 	}
+	return 0;
 }
 
 // Precondition : The iostream library is included. Using namespace std. Variable again exists to be passed by reference. 
